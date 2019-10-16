@@ -1,0 +1,21 @@
+language: php
+
+sudo: true
+
+services:
+  - docker
+
+matrix:
+  fast_finish: true
+
+env:
+  matrix:
+    - DRIVER="xdebug" DEPENDENCIES="high"
+  global:
+    - DEFAULT_COMPOSER_FLAGS="--no-interaction --no-ansi --no-progress --no-suggest"
+
+install:
+  - curl -s https://raw.githubusercontent.com/markshust/docker-magento/master/lib/onelinesetup | bash -s -- magento2.test 2.3.3
+
+script:
+  - ./bin/magento dev:tests:run
